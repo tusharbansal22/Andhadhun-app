@@ -1,3 +1,4 @@
+import 'package:andhadhunapp/screens/LocAuth.dart';
 import 'package:andhadhunapp/screens/home.dart';
 import 'package:andhadhunapp/screens/questions.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
     initialRoute: 'home',
       routes: {
-        'home':(context)=>Home(),
+        'home':(context)=>LocAuth(),
         'questions':(context)=>Questions()
         },
     );
