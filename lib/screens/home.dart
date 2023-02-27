@@ -9,9 +9,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  void initState() async {
+  void getUserLocation() async {
     var userLocation = await UserLocation().determinePosition();
     print(userLocation);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserLocation();
   }
 
   @override

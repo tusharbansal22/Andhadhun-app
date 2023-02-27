@@ -1,4 +1,3 @@
-import 'package:andhadhunapp/screens/LocAuth.dart';
 import 'package:andhadhunapp/screens/home.dart';
 import 'package:andhadhunapp/screens/questions.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    initialRoute: 'home',
+      initialRoute: 'home',
       routes: {
-        'home':(context)=>LocAuth(),
-        'questions':(context)=>Questions()
-        },
+        'home': (context) => Home(),
+        'questions': (context) => Questions()
+      },
     );
   }
 }
