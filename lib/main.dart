@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
     initialRoute: 'home',
       routes: {
-        'home':(context)=>LocAuth(),
+        'home':(context)=>Home(),
         'questions':(context)=>Questions()
         },
     );
