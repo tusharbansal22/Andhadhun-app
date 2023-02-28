@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
+
 class LocAuth extends StatefulWidget {
   const LocAuth({Key? key}) : super(key: key);
 
@@ -14,6 +15,7 @@ class _LocAuthState extends State<LocAuth> {
   bool _speechEnabled = false;
   String _text = '';
   FlutterTts flutterTts = FlutterTts();
+
   stt.SpeechToText _speech = stt.SpeechToText();
 
   // String _text = 'Press the button and start speaking';
@@ -22,7 +24,7 @@ class _LocAuthState extends State<LocAuth> {
 
   Future _speak() async {
     await flutterTts.speak(
-        "Welcome to Andhadhun. Hope you have a smooth experience.Tap anywhere on the screen and specify the amount you want to deduct.");
+        "स्वागत। बीप के बाद राशि का उल्लेख करें");
   }
 
   // bool available = await speech.initialize();
@@ -34,6 +36,7 @@ class _LocAuthState extends State<LocAuth> {
 
   /// This has to happen only once per app
   void _initSpeech() async {
+    await flutterTts.setLanguage("hi-IN");
     _speechEnabled = await _speech.initialize();
     setState(() {});
   }
