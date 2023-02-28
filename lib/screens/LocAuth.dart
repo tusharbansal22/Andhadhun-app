@@ -22,7 +22,7 @@ class _LocAuthState extends State<LocAuth> {
 
   Future _speak() async {
     await flutterTts.speak(
-        "Welcome to Andhadhun. Hope you have a smooth experience.Tap anywhere on the screen to start recording.");
+        "Welcome to Andhadhun. Hope you have a smooth experience.Tap anywhere on the screen and specify the amount you want to deduct.");
   }
 
   // bool available = await speech.initialize();
@@ -50,6 +50,7 @@ class _LocAuthState extends State<LocAuth> {
       onResult: (result) {
         setState(() {
           _text = result.recognizedWords;
+          print(_text);
         });
       },
     );
@@ -68,65 +69,66 @@ class _LocAuthState extends State<LocAuth> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Andhadhun'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Container(
-          alignment: Alignment.center,
-          height: 500,
-          width: double.infinity,
-          child: GestureDetector(
-            onTap: () {
-              if (!_isListening) {
-                _startListening();
-              } else {
-                _stopListening();
-              }
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "WELCOME",
-                  style: TextStyle(fontSize: 32),
-                ),
-                Text(
-                  "TO",
-                  style: TextStyle(fontSize: 28),
-                ),
-                Text(
-                  "Andhadhun",
-                  style: TextStyle(fontSize: 32),
-                ),
-                Center(
-                  child: Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(50),
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        // If listening is active show the recognized words
-                        _speech.isListening
-                            ? '$_text'
-                            // If listening isn't active but could be tell the user
-                            // how to start it, otherwise indicate that speech
-                            // recognition is not yet ready or not supported on
-                            // the target device
-                            : _speechEnabled
-                                ? 'Tap anywhere on the screen to start recording...'
-                                : 'Speech not available',
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return GestureDetector(
+        onTap: () {
+          if (!_isListening) {
+            _startListening();
+          } else {
+            _stopListening();
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade800,
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade900,
+          centerTitle: true,
+          title: Text('AndhaDhun'),
         ),
-      ),
+        body:Container(
+          width:double.infinity,
+          child:Column(
+
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "WELCOME",
+                style: TextStyle(fontSize: 32,color: Colors.white, letterSpacing: 5,fontWeight: FontWeight.w300),
+              ),
+              SizedBox(height: 5,),
+              Text(
+                "TO",
+                style: TextStyle(fontSize: 28,color: Colors.white, fontWeight: FontWeight.w300),
+              ),
+              SizedBox(height: 5,),
+              Text(
+                "Andhadhun",
+                style: TextStyle(fontSize: 32,color: Colors.white, fontWeight: FontWeight.w300, letterSpacing: 3),
+              ),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.all(50),
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    style:TextStyle(color: Colors.white54),
+                    // If listening is active show the recognized words
+                    _text!=''
+                        ? '$_text'
+                    // If listening isn't active but could be tell the user
+                    // how to start it, otherwise indicate that speech
+                    // recognition is not yet ready or not supported on
+                    // the target device
+                        : _speechEnabled
+                        ? 'Tap anywhere on the screen to start recording...'
+                        : 'Speech not available',
+                  ),
+
+                ),
+              ),
+            ],
+          ),
+        )
+    )
     );
   }
 }
