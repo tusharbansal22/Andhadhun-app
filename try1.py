@@ -31,19 +31,22 @@ while True:
     for (x, y, w, h) in faces:
         face = frame[y-180:y + h+180, x-180:x + w+180]
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        cv2.imwrite(f'/Users/tusharbansal/Documents/face_recognition/face.jpeg', face)
-        unknown_image = face_recognition.load_image_file(f'face.jpeg')
-        unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+        try:
+            cv2.imwrite(f'/Users/tusharbansal/Documents/face_recognition/face.jpeg', face)
+            unknown_image = face_recognition.load_image_file(f'face.jpeg')
+        except:
+            continue
+        try:
+            unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+        except:
+            continue
 
         results = face_recognition.compare_faces([known_encoding], unknown_encoding)
         i+=1
-        if(results[0]==True):
-            imatch+=1
-        if(results[0]==True and imatch>5):
+        if(results[0]==True ):
             print('Face Matched')
-            
             sys.exit()
-        if(i>7):
+        if(i>2):
             print('Wrong person')
             sys.exit()
         
