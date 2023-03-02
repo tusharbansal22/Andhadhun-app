@@ -11,6 +11,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // String mobileNumber = '123';
+  // List<SimCard> _simCard = <SimCard>[];
+
   void getCurrentPosition() async {
     var userLocation = await UserLocation().determinePosition();
     print(userLocation);
@@ -31,7 +34,36 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     getCurrentPosition();
+    // MobileNumber.listenPhonePermission((isPermissionGranted) {
+    //   // if (isPermissionGranted) {
+    //   initMobileNumberState();
+    //   // } else {
+    //   //   print("No permission.");
+    //   // }
+    // });
   }
+
+  // Future<void> initMobileNumberState() async {
+  //   // if (!await MobileNumber.hasPhonePermission) {
+  //   await MobileNumber.requestPhonePermission;
+  //   // return;
+  //   // }
+  //   // Platform messages may fail, so we use a try/catch PlatformException.
+  //   try {
+  //     mobileNumber = (await MobileNumber.mobileNumber)!;
+  //     _simCard = (await MobileNumber.getSimCards)!;
+  //     print(mobileNumber);
+  //   } on PlatformException catch (e) {
+  //     debugPrint("Failed to get mobile number because of '${e.message}'");
+  //   }
+  //
+  //   // If the widget was removed from the tree while the asynchronous platform
+  //   // message was in flight, we want to discard the reply rather than calling
+  //   // setState to update our non-existent appearance.
+  //   if (!mounted) return;
+  //
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
