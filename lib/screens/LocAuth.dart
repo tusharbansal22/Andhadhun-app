@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:mobile_number/mobile_number.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class LocAuth extends StatefulWidget {
@@ -19,15 +21,19 @@ class _LocAuthState extends State<LocAuth> {
   String userAnswer = '';
   int speechNum = 0;
   FlutterTts flutterTts = FlutterTts();
+  String mobileNumber = '';
+  List<SimCard> _simCard = <SimCard>[];
 
   // String _text = 'Press the button and start speaking';
   // SpeechToText _speechToText = SpeechToText();
   // String _lastWords = '';
 
-  Future _welcomeSpeak() async {
-    await flutterTts.speak(
-        // "अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
-        "अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और कृपया अपना नाम बताएंं|");
+  @override
+  void initState() {
+    super.initState();
+    _initSetting();
+    initMobileNumberState();
+    _welcomeSpeak();
   }
 
   // This has to happen only once per app
@@ -37,11 +43,39 @@ class _LocAuthState extends State<LocAuth> {
     setState(() {});
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _welcomeSpeak();
-    _initSetting();
+  Future _welcomeSpeak() async {
+    await flutterTts.speak(
+        // "अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
+        " अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और कृपया अपना नाम बताएंं|");
+  }
+
+  Future<void> initMobileNumberState() async {
+    // if (!await MobileNumber.hasPhonePermission) {
+    MobileNumber.listenPhonePermission((isPermissionGranted) {
+      // if (isPermissionGranted) {
+
+      // } else {
+      //   print("No permission.");
+      // }
+      setState(() async {
+        try {
+          mobileNumber = (await MobileNumber.mobileNumber)!;
+          _simCard = (await MobileNumber.getSimCards)!;
+          print(mobileNumber);
+        } on PlatformException catch (e) {
+          debugPrint("Failed to get mobile number because of '${e.message}'");
+        }
+      });
+    });
+    await MobileNumber.requestPhonePermission;
+    // return;
+    // }
+    // Platform messages may fail, so we use a try/catch PlatformException.
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
   }
 
   void _startListening() {
@@ -128,7 +162,7 @@ class _LocAuthState extends State<LocAuth> {
 
   void _speechListen2() async {
     _startListening();
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 7), () {
       setState(() async {
         _stopListening();
         print(userAnswer);
@@ -205,8 +239,8 @@ class _LocAuthState extends State<LocAuth> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "WELCOME",
+              Text(
+                "WELCOME $mobileNumber",
                 style: TextStyle(
                     fontSize: 32,
                     color: Colors.white,
@@ -226,7 +260,7 @@ class _LocAuthState extends State<LocAuth> {
               const SizedBox(
                 height: 5,
               ),
-              const Text(
+              Text(
                 "Andhadhun",
                 style: TextStyle(
                     fontSize: 32,
