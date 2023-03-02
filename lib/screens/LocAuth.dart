@@ -21,7 +21,7 @@ class _LocAuthState extends State<LocAuth> {
   String userAnswer = '';
   int speechNum = 0;
   FlutterTts flutterTts = FlutterTts();
-  String mobileNumber = '';
+  String _mobileNumber = '';
   List<SimCard> _simCard = <SimCard>[];
 
   // String _text = 'Press the button and start speaking';
@@ -59,9 +59,9 @@ class _LocAuthState extends State<LocAuth> {
       // }
       setState(() async {
         try {
-          mobileNumber = (await MobileNumber.mobileNumber)!;
+          _mobileNumber = (await MobileNumber.mobileNumber)!;
           _simCard = (await MobileNumber.getSimCards)!;
-          print(mobileNumber);
+          print(_mobileNumber);
         } on PlatformException catch (e) {
           debugPrint("Failed to get mobile number because of '${e.message}'");
         }
@@ -76,6 +76,16 @@ class _LocAuthState extends State<LocAuth> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
+  }
+
+  Widget fillCards() {
+    List<Widget> widgets = _simCard
+        .map((SimCard sim) => Text(
+              'Sim Card Number: (${sim.countryPhonePrefix}) - ${sim.number}\nCarrier Name: ${sim.carrierName}\nCountry Iso: ${sim.countryIso}\nDisplay Name: ${sim.displayName}\nSim Slot Index: ${sim.slotIndex}\n\n',
+              style: TextStyle(color: Colors.white, fontSize: 13),
+            ))
+        .toList();
+    return Column(children: widgets);
   }
 
   void _startListening() {
@@ -240,7 +250,7 @@ class _LocAuthState extends State<LocAuth> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "WELCOME $mobileNumber",
+                "WELCOME",
                 style: TextStyle(
                     fontSize: 32,
                     color: Colors.white,
@@ -283,6 +293,7 @@ class _LocAuthState extends State<LocAuth> {
                   ),
                 ),
               ),
+              fillCards(),
             ],
           ),
         ),
