@@ -25,13 +25,14 @@ class _LocAuthState extends State<LocAuth> {
   FlutterTts flutterTts = FlutterTts();
   String _mobileNumber = '';
   List<SimCard> _simCard = <SimCard>[];
+  static const String serverIp = '10.3.13.139';
 
   // String _text = 'Press the button and start speaking';
   // SpeechToText _speechToText = SpeechToText();
   // String _lastWords = '';
   Future<void> sendData(int data) async {
     final response = await http.post(
-      Uri.parse('http://10.3.13.139:5000/api/data'),
+      Uri.parse('http://$serverIp:5000/api/data'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
