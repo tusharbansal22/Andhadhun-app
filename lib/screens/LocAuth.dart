@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile_number/mobile_number.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -27,10 +29,36 @@ class _LocAuthState extends State<LocAuth> {
   // String _text = 'Press the button and start speaking';
   // SpeechToText _speechToText = SpeechToText();
   // String _lastWords = '';
+  Future<void> sendData(int data) async {
+    final response = await http.post(
+      Uri.parse('http://10.3.13.139:5000/api/data'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'data': data,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Data sent successfully');
+    } else {
+      throw Exception('Failed to send data');
+    }
+  }
+
+  Future<void> _sendData() async {
+    try {
+      await sendData(1000);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _sendData();
     _initSetting();
     initMobileNumberState();
     _welcomeSpeak();
