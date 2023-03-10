@@ -50,7 +50,7 @@ class _LocAuthState extends State<LocAuth> {
 
   Future<void> _sendData() async {
     try {
-      await sendData(1000);
+      await sendData(5000);
     } catch (e) {
       print(e);
     }
@@ -121,17 +121,13 @@ class _LocAuthState extends State<LocAuth> {
     _speech.listen(
       onResult: (result) {
         setState(() {
+          _isListening = true;
           _text = result.recognizedWords;
           userAnswer = _text;
           // print(_text);
         });
       },
     );
-
-    // print("hello");
-    setState(() {
-      _isListening = true;
-    });
   }
 
   void _stopListening() async {
@@ -156,25 +152,6 @@ class _LocAuthState extends State<LocAuth> {
           await flutterTts.speak(
               'नमस्ते $userAnswer, स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|');
         }
-        // await flutterTts.speak(
-        //     "स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
-        // Timer(Duration(seconds: 4), () {
-        //   setState(() {
-        //     _startListening();
-        //   });
-        // });
-
-        //   Timer(Duration(seconds: 5), () {
-        //     setState(() {
-        //       _stopListening();
-        //       if (userAnswer == ''){
-        //         flutterTts.speak(
-        //             "स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
-        //       }
-        //     });
-        //         }
-        //
-
         userAnswer = '';
       });
     });
@@ -314,7 +291,7 @@ class _LocAuthState extends State<LocAuth> {
                   child: Text(
                     style: const TextStyle(color: Colors.white54),
                     // If listening is active show the recognized words
-                    _text != ''
+                    userAnswer != ''
                         ? _text
                         : _speechEnabled
                             ? 'Tap anywhere on the screen to start recording...'
