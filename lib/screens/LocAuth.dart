@@ -48,9 +48,9 @@ class _LocAuthState extends State<LocAuth> {
     }
   }
 
-  Future<void> _sendData() async {
+  Future<void> _sendData(int amount) async {
     try {
-      await sendData(5000);
+      await sendData(amount);
     } catch (e) {
       print(e);
     }
@@ -59,7 +59,7 @@ class _LocAuthState extends State<LocAuth> {
   @override
   void initState() {
     super.initState();
-    _sendData();
+    // _sendData();
     _initSetting();
     initMobileNumberState();
     _welcomeSpeak();
@@ -75,7 +75,7 @@ class _LocAuthState extends State<LocAuth> {
   Future _welcomeSpeak() async {
     await flutterTts.speak(
         // "अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
-        " अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और कृपया अपना नाम बताएंं|");
+        " दिव्यदृष्टि ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और कृपया अपना नाम बताएंं|");
   }
 
   Future<void> initMobileNumberState() async {
@@ -168,42 +168,47 @@ class _LocAuthState extends State<LocAuth> {
               'स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|');
         } else {
           speechNum = 2;
+          //   await flutterTts.speak(
+          //       'आप $userAnswer रुपये निकाल रहे होंगे| यदि सहमत हों तब स्क्रीन पर टैप करने के बाद 1 बोलें');
+          // }
           await flutterTts.speak(
-              'आप $userAnswer रुपये निकाल रहे होंगे| यदि सहमत हों तब स्क्रीन पर टैप करने के बाद 1 बोलें');
+              'नआप $userAnswer रुपये निकाल रहे होंगे| िर्दिष्ट राशि आपके खाते से निकाल ली गई है।');
         }
+
+        _sendData(int.parse(userAnswer));
         userAnswer = '';
       });
     });
   }
 
-  void _speechListen2() async {
-    _startListening();
-    Timer(Duration(seconds: 7), () {
-      setState(() async {
-        _stopListening();
-        print(userAnswer);
-        // if (userAnswer == '') {
-        // speechNum = 1;
-        // await flutterTts.speak(
-        //     'स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|');
-        // }
-        // if (userAnswer == '1' ||
-        //     userAnswer.toLowerCase() == 'one' ||
-        //     userAnswer.toLowerCase() == 'ek') {
-        // speechNum = 3;
-        await flutterTts.speak(
-            'आपका पैसा जल्द ही निकल जाएगा | अंधाधुन ऐप का उपयोग करने के लिए धन्यवाद।');
-        // }
-        // else {
-        // speechNum = 3;
-
-        // flutterTts.speak(
-        //     'आपका पैसा जल्द ही निकल जाएगा | अंधाधुन ऐप का उपयोग करने के लिए धन्यवाद।');
-        // }
-        userAnswer = '';
-      });
-    });
-  }
+  // void _speechListen2() async {
+  //   _startListening();
+  //   Timer(Duration(seconds: 7), () {
+  //     setState(() async {
+  //       _stopListening();
+  //       print(userAnswer);
+  //       // if (userAnswer == '') {
+  //       // speechNum = 1;
+  //       // await flutterTts.speak(
+  //       //     'स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|');
+  //       // }
+  //       // if (userAnswer == '1' ||
+  //       //     userAnswer.toLowerCase() == 'one' ||
+  //       //     userAnswer.toLowerCase() == 'ek') {
+  //       // speechNum = 3;
+  //       await flutterTts.speak(
+  //           'आपका पैसा जल्द ही निकल जाएगा | अंधाधुन ऐप का उपयोग करने के लिए धन्यवाद।');
+  //       // }
+  //       // else {
+  //       // speechNum = 3;
+  //
+  //       // flutterTts.speak(
+  //       //     'आपका पैसा जल्द ही निकल जाएगा | अंधाधुन ऐप का उपयोग करने के लिए धन्यवाद।');
+  //       // }
+  //       userAnswer = '';
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -225,11 +230,11 @@ class _LocAuthState extends State<LocAuth> {
             }
             break;
 
-          case 2:
-            {
-              _speechListen2();
-            }
-            break;
+          // case 2:
+          //   {
+          //     _speechListen2();
+          //   }
+          //   break;
 
           default:
             {
@@ -247,7 +252,7 @@ class _LocAuthState extends State<LocAuth> {
         appBar: AppBar(
           backgroundColor: Colors.grey.shade900,
           centerTitle: true,
-          title: const Text('AndhaDhun'),
+          title: const Text('Divya Drishti'),
         ),
         body: Container(
           width: double.infinity,
@@ -277,7 +282,7 @@ class _LocAuthState extends State<LocAuth> {
                 height: 5,
               ),
               Text(
-                "Andhadhun",
+                "Divya Drishti",
                 style: TextStyle(
                     fontSize: 32,
                     color: Colors.white,
