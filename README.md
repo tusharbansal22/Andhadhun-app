@@ -1,16 +1,6 @@
-# andhadhunapp
+# Divyadrishti App (originally Andhadhun)
 
-A new Flutter project.
+An app that aids the blind people to withdraw money from the ATM in a secure and convenient manner. Built by Aditya Sankhla and Tushar Bansal. 
+Given below is the link for the Data Flow Diagram for the same: https://drive.google.com/file/d/1Fr6uLouQSdvqC6BN0N3_jAYGp6Qs5-rw/view?usp=sharing
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app needs to be run along with the Andhadhun server for smooth user experience.
