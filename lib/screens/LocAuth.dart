@@ -56,15 +56,6 @@ class _LocAuthState extends State<LocAuth> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // _sendData();
-    _initSetting();
-    initMobileNumberState();
-    _welcomeSpeak();
-  }
-
   // This has to happen only once per app
   void _initSetting() async {
     await flutterTts.setLanguage("hi-IN");
@@ -72,10 +63,14 @@ class _LocAuthState extends State<LocAuth> {
     setState(() {});
   }
 
-  Future _welcomeSpeak() async {
-    await flutterTts.speak(
-        // "अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
-        " दिव्यदृष्टि ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और कृपया अपना नाम बताएंं|");
+  Widget fillCards() {
+    List<Widget> widgets = _simCard
+        .map((SimCard sim) => Text(
+              'Sim Card Number: (${sim.countryPhonePrefix}) - ${sim.number}\nCarrier Name: ${sim.carrierName}\nCountry Iso: ${sim.countryIso}\nDisplay Name: ${sim.displayName}\nSim Slot Index: ${sim.slotIndex}\n\n',
+              style: TextStyle(color: Colors.white, fontSize: 13),
+            ))
+        .toList();
+    return Column(children: widgets);
   }
 
   Future<void> initMobileNumberState() async {
@@ -107,14 +102,19 @@ class _LocAuthState extends State<LocAuth> {
     if (!mounted) return;
   }
 
-  Widget fillCards() {
-    List<Widget> widgets = _simCard
-        .map((SimCard sim) => Text(
-              'Sim Card Number: (${sim.countryPhonePrefix}) - ${sim.number}\nCarrier Name: ${sim.carrierName}\nCountry Iso: ${sim.countryIso}\nDisplay Name: ${sim.displayName}\nSim Slot Index: ${sim.slotIndex}\n\n',
-              style: TextStyle(color: Colors.white, fontSize: 13),
-            ))
-        .toList();
-    return Column(children: widgets);
+  Future _welcomeSpeak() async {
+    await flutterTts.speak(
+        // "अंधाधुन ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|");
+        " दिव्यदृष्टि ऐप में आपका स्वागत है। स्क्रीन पर कहीं भी क्लिक करें और कृपया अपना नाम बताएंं|");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // _sendData();
+    _initSetting();
+    initMobileNumberState();
+    _welcomeSpeak();
   }
 
   void _startListening() {
