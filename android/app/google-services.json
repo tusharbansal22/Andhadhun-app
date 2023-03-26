@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "713938603954",
+    "project_id": "divyadhristi-ff265",
+    "storage_bucket": "divyadhristi-ff265.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713938603954:android:1706e45f452827e7e19eab",
+        "android_client_info": {
+          "package_name": "com.example.andhadhunapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713938603954-5h0m5s1op5ekb7qlde5489fv4f0orara.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCFGjwZ52LDRJoszkxjzDneQCHumveAaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713938603954-5h0m5s1op5ekb7qlde5489fv4f0orara.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
