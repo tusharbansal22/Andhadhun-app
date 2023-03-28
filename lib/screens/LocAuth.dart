@@ -145,12 +145,13 @@ class _LocAuthState extends State<LocAuth> {
         _stopListening();
 
         if (userAnswer == '') {
-          flutterTts
+          await flutterTts
               .speak('स्क्रीन पर टैप करने के बाद कृपया अपना नाम दोहराएं |');
         } else {
           speechNum = 1;
+          // await flutterTts.speak('Voice matched successfully');
           await flutterTts.speak(
-              'नमस्ते $userAnswer, स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|');
+              'Voice matched successfully. नमस्ते $userAnswer, स्क्रीन पर कहीं भी क्लिक करें और बीप के बाद राशि का उल्लेख करें|');
         }
         userAnswer = '';
       });
