@@ -2,6 +2,7 @@ import 'package:andhadhunapp/services/location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+import 'LocAuth.dart';
 import 'audio_record.dart';
 // import 'package:http/http.dart' as http;
 
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return AudioRecorder();
-    // return LocAuth();
+    // return AudioRecorder();
+    return LocAuth();
   }
 }
