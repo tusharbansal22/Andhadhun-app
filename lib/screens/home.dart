@@ -1,7 +1,8 @@
-import 'package:andhadhunapp/screens/LocAuth.dart';
 import 'package:andhadhunapp/services/location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
+import 'audio_record.dart';
 // import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return LocAuth();
+    return AudioRecorder();
+    // return LocAuth();
   }
 }
